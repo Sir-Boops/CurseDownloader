@@ -28,7 +28,7 @@ public class GetFileName {
 		get.setParams(params);
 		HttpResponse res = null;
 		res = client.execute(get);
-		
+
 		String locationHeader = res.getFirstHeader("Location").toString();
 		String modName = URLDecoder.decode(locationHeader.substring((locationHeader.lastIndexOf("/") + 1), locationHeader.length()), "UTF-8");
 		

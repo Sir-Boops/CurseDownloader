@@ -28,7 +28,17 @@ public class Download {
 		InputStream is = entity.getContent();
 		FileOutputStream fos = new FileOutputStream(new File(path + filename));
 		
-		double fileBytes = Integer.parseInt(res.getFirstHeader("Content-Length").toString().split(" ")[1]);
+		double fileBytes;
+		
+		if(res.getFirstHeader("Content-Length").toString() != null){
+			
+			fileBytes = Integer.parseInt(res.getFirstHeader("Content-Length").toString().split(" ")[1]);
+			
+		} else {
+			
+			fileBytes = 1.0d;
+			
+		}
 		
 		int inByte;
 		double totalBytes = 0;
