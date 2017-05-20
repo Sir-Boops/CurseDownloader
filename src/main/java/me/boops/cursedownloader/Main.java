@@ -2,64 +2,59 @@ package me.boops.cursedownloader;
 
 import java.io.File;
 import java.math.BigInteger;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.security.SecureRandom;
-
-import net.lingala.zip4j.core.ZipFile;
 
 public class Main {
 	
 	public static void main(String[] args) throws Exception{
 		
+		// Get a random string
 		SecureRandom random = new SecureRandom();
-		
 		String tempFolderName = ("." + new BigInteger(130, random).toString(32));
 		
-		String compressedFile = new File(args[0]).getAbsoluteFile().toString();
-		String compressedFilePath = compressedFile.substring(0, (compressedFile.lastIndexOf(File.separator) + 1));
+		// Check if downloading whole pack or using a pack we already have
 		
-		System.out.println("Using temp dir -> " + compressedFilePath + tempFolderName);
+		if(args[0].toLowerCase().equals("fetch")){
+			
+			// We want to grab the pack before working
+			
+			// Get current dir
+			String myPath = new File(".").getAbsolutePath();
+			myPath = myPath.substring(0, (myPath.length() - 1));
+			
+			// Get pack name/fileID
+			int packID = Integer.parseInt(args[1].substring((args[1].lastIndexOf("/") + 1), args[1].length()));
+			String packName = (args[1].replace(args[1].substring(args[1].lastIndexOf("/"), args[1].length()), ""));
+			packName = (packName.replace(packName.substring(packName.lastIndexOf("/"), packName.length()), ""));
+			packName = (packName.substring((packName.lastIndexOf("/") + 1), packName.length()));
+			
+			// Create the temp folder
+			new File(myPath + "." + tempFolderName).mkdirs();
+			
+			System.out.println("Downloading pack: " + packName);
+			
+			// Download the pack
+			new GetFileName().getMod(packName, packID, myPath);
+			
+			// Get pack name
+			String packZip = new ReturnFileName().getMod(packName, packID, myPath);
+			
+			// Now do the normal install
+			new PackInstall().get(tempFolderName, packZip);
+			
+			System.out.println("Removing Curse export");
+			// Finally delete the downloaded pack
+			new File(myPath + packZip).delete();
+			
+		}
 		
-		// Unzip the file to a temp folder
-		ZipFile zipFile = new ZipFile(compressedFile);
-		new File(compressedFilePath + tempFolderName).mkdirs();
-		zipFile.extractAll(compressedFilePath + tempFolderName + "/");
-		
-		// Read the manifest
-		System.out.println("Reading the manifest");
-		Manifest manifest = new Manifest();
-		manifest.readManifest(compressedFilePath + tempFolderName + "/");
-		
-		// Get the mods
-		System.out.println("Starting Mod downloads");
-		new GetMod().Download(compressedFilePath + tempFolderName + "/mods/", manifest.getModList());
-		
-		// Delete the curse files
-		System.out.println("Removing curse files");
-		new CleanCurse().removeCurse(compressedFilePath + tempFolderName + "/");
-		
-		// Add the overrides
-		System.out.println("Applying Overrides");
-		new ApplyOverrides().AddOverrides(compressedFilePath + tempFolderName + "/");
-		
-		
-		// Delete old folders
-		System.out.println("Removing tmp folders");
-		new File(compressedFilePath + tempFolderName + "/overrides").delete();
-		
-		// Move temp folder to final folder
-		System.out.println("Saving to final folder");
-		String finalFolderName = compressedFile.substring((compressedFile.lastIndexOf("/") + 1), compressedFile.length()).replace(".zip", "");
-		
-		Path from = new File(compressedFilePath + tempFolderName).toPath();
-		Path to = new File(compressedFilePath + finalFolderName).toPath();
-		
-		Files.move(from, to, StandardCopyOption.REPLACE_EXISTING);
-		
-		System.out.println("Saved pack '" + manifest.getPackName() + "' to -> " + compressedFilePath + finalFolderName);
-		System.out.println("!! Use Minecraft version -> '" + manifest.getMCVersion() + "' with forge version -> '" + manifest.getForgeVersion() + "' !!");
-		
+		if(args[0].toLowerCase().equals("extract")){
+			
+			
+			// We just want to extract the pack
+			new PackInstall().get(tempFolderName, args[1]);
+			
+			
+		}
 	}
 }

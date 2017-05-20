@@ -14,7 +14,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 
 @SuppressWarnings("deprecation")
-public class GetModFileName {
+public class GetFileName {
 	
 	public void getMod(String name, int fileID, String path) throws ClientProtocolException, IOException {
 		

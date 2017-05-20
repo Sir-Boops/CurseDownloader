@@ -36,7 +36,7 @@ public class GetMod {
 			String locationHeader = res.getFirstHeader("Location").toString();
 			String modName = locationHeader.substring((locationHeader.lastIndexOf("/") + 1), locationHeader.length());
 			
-			new GetModFileName().getMod(modName, mods.getJSONObject(i).getInt("fileID"), folder);
+			new GetFileName().getMod(modName, mods.getJSONObject(i).getInt("fileID"), folder);
 			
 		}
 	}
