@@ -33,11 +33,19 @@ public class Download {
 		
 		int inByte;
 		double totalBytes = 0;
+		int lastProgress = 0;
 		while ((inByte = is.read()) != -1){
 			fos.write(inByte);
 			totalBytes++;
-			
-			System.out.print("Downloading " + filename + " - File size: " + ((int) fileBytes/1024) + " KB - Progress: " + ((int) ((totalBytes / fileBytes) * 100)) + "%\r");
+
+			int percent = ((int) ((totalBytes / fileBytes) * 100));
+
+			if(percent > lastProgress || lastProgress == 0){
+
+				lastProgress = percent;
+				System.out.print("Downloading: " + filename + " - File size: " + ((int) fileBytes/1024) + " KB - Progress: " + percent + "%\r");
+
+			}
 		}
 		
 		System.out.println("Downloaded: " + filename + " - File size: " + ((int) fileBytes / 1024) + " KB");
