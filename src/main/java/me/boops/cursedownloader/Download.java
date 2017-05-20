@@ -15,12 +15,11 @@ import org.apache.http.impl.client.HttpClients;
 
 public class Download {
 	
-	public void downloadMod(String filename, String name, int fileID, String path) throws ClientProtocolException, IOException{
+	public void downloadMod(String filename, String name, int fileID, String path, String URL) throws ClientProtocolException, IOException{
 		
 		
-		String url = "https://minecraft.curseforge.com/projects/" + name + "/files/" + fileID + "/download";
 		HttpClient client = HttpClients.custom().setSSLHostnameVerifier(new DefaultHostnameVerifier()).build();
-		HttpGet get = new HttpGet(url);
+		HttpGet get = new HttpGet(URL);
 		HttpResponse res = null;
 		res = client.execute(get);
 		

@@ -2,6 +2,7 @@ package me.boops.cursedownloader;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -31,7 +32,11 @@ public class GetFileName {
 		String locationHeader = res.getFirstHeader("Location").toString();
 		String modName = URLDecoder.decode(locationHeader.substring((locationHeader.lastIndexOf("/") + 1), locationHeader.length()), "UTF-8");
 		
-		new Download().downloadMod(modName, name, fileID, path);
+		String URL = res.getFirstHeader("Location").toString().split(" ")[1];
+		String fileName = URLEncoder.encode(URL.substring((URL.lastIndexOf("/") + 1), URL.length()), "UTF-8");
+		URL = ((URL.substring(0, (URL.lastIndexOf("/") + 1)).replaceFirst("http", "https")) + fileName);
+
+		new Download().downloadMod(modName, name, fileID, path, URL);
 		
 	}
 }
