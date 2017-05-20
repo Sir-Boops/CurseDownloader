@@ -24,17 +24,23 @@ public class Download {
 		HttpResponse res = null;
 		res = client.execute(get);
 		
-		System.out.println("Downloading mod -> '" + name + "' to -> '" + filename + "'");
-		
 		HttpEntity entity = res.getEntity();
 		
 		InputStream is = entity.getContent();
 		FileOutputStream fos = new FileOutputStream(new File(path + filename));
 		
+		double fileBytes = Integer.parseInt(res.getFirstHeader("Content-Length").toString().split(" ")[1]);
+		
 		int inByte;
+		double totalBytes = 0;
 		while ((inByte = is.read()) != -1){
 			fos.write(inByte);
+			totalBytes++;
+			
+			System.out.print("Downloading " + filename + " - File size: " + ((int) fileBytes/1024) + " KB - Progress: " + ((int) ((totalBytes / fileBytes) * 100)) + "%\r");
 		}
+		
+		System.out.println("Downloaded: " + filename + " - File size: " + ((int) fileBytes / 1024) + " KB");
 		
 		is.close();
 		fos.close();
