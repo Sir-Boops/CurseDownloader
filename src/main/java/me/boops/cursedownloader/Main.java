@@ -28,9 +28,6 @@ public class Main {
 			packName = (packName.replace(packName.substring(packName.lastIndexOf("/"), packName.length()), ""));
 			packName = (packName.substring((packName.lastIndexOf("/") + 1), packName.length()));
 			
-			// Create the temp folder
-			new File(myPath + "." + tempFolderName).mkdirs();
-			
 			System.out.println("Downloading pack: " + packName);
 			
 			// Download the pack

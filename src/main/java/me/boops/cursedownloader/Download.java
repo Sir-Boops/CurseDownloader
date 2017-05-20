@@ -48,7 +48,7 @@ public class Download {
 			}
 		}
 		
-		System.out.println("Downloaded: " + filename + " - File size: " + ((int) fileBytes / 1024) + " KB");
+		System.out.println("Downloading: " + filename + " - File size: " + ((int) fileBytes/1024) + " KB - Progress: 100%");
 		
 		is.close();
 		fos.close();
