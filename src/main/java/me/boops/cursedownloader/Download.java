@@ -30,7 +30,7 @@ public class Download {
 		
 		double fileBytes;
 		
-		if(res.getFirstHeader("Content-Length").toString() != null){
+		if(res.containsHeader("Content-Length")){
 			
 			fileBytes = Integer.parseInt(res.getFirstHeader("Content-Length").toString().split(" ")[1]);
 			
