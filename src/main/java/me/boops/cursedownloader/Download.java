@@ -10,7 +10,7 @@ public class Download {
 	
 	public void downloadMod(String filename, String name, int fileID, String path, URL URL) throws Exception{
 		
-		URLConnection conn = url.openConnection();
+		URLConnection conn = URL.openConnection();
 		
 		InputStream is = conn.getInputStream();
 		FileOutputStream fos = new FileOutputStream(new File(path + filename));
