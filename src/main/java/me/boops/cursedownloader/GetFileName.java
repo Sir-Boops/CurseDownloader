@@ -1,5 +1,6 @@
 package me.boops.cursedownloader;
 
+import java.net.URL;
 import java.net.URLDecoder;
 
 import org.apache.http.HttpResponse;
@@ -29,8 +30,8 @@ public class GetFileName {
 		String locationHeader = res.getFirstHeader("Location").toString();
 		String modName = URLDecoder.decode(locationHeader.substring((locationHeader.lastIndexOf("/") + 1), locationHeader.length()), "UTF-8");
 		
-		String URL = res.getFirstHeader("Location").toString().split(" ")[1];
-		URL = (URL.replaceFirst("http://", "https://"));
+		String badURL = res.getFirstHeader("Location").toString().split(" ")[1];
+		URL URL = new URL(badURL.replaceFirst("http://", "https://"));
 
 		new Download().downloadMod(modName, name, fileID, path, URL);
 		

@@ -8,9 +8,7 @@ import java.net.URLConnection;
 
 public class Download {
 	
-	public void downloadMod(String filename, String name, int fileID, String path, String fullURL) throws Exception{
-		
-		URL url = new URL(fullURL);
+	public void downloadMod(String filename, String name, int fileID, String path, URL URL) throws Exception{
 		
 		URLConnection conn = url.openConnection();
 		
