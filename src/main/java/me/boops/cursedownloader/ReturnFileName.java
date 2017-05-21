@@ -1,10 +1,8 @@
 package me.boops.cursedownloader;
 
-import java.io.IOException;
 import java.net.URLDecoder;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.params.ClientPNames;
@@ -16,7 +14,7 @@ import org.apache.http.params.HttpParams;
 @SuppressWarnings("deprecation")
 public class ReturnFileName {
 	
-	public String getMod(String name, int fileID, String path) throws ClientProtocolException, IOException {
+	public String getMod(String name, int fileID, String path) throws Exception {
 		
 		HttpParams params = new BasicHttpParams();
 		params.setParameter(ClientPNames.HANDLE_REDIRECTS, false);

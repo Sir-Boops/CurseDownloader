@@ -1,11 +1,8 @@
 package me.boops.cursedownloader;
 
-import java.io.IOException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.params.ClientPNames;
@@ -17,7 +14,7 @@ import org.apache.http.params.HttpParams;
 @SuppressWarnings("deprecation")
 public class GetFileName {
 	
-	public void getMod(String name, int fileID, String path) throws ClientProtocolException, IOException {
+	public void getMod(String name, int fileID, String path) throws Exception {
 		
 		HttpParams params = new BasicHttpParams();
 		params.setParameter(ClientPNames.HANDLE_REDIRECTS, false);
@@ -33,8 +30,7 @@ public class GetFileName {
 		String modName = URLDecoder.decode(locationHeader.substring((locationHeader.lastIndexOf("/") + 1), locationHeader.length()), "UTF-8");
 		
 		String URL = res.getFirstHeader("Location").toString().split(" ")[1];
-		String fileName = URLEncoder.encode(URL.substring((URL.lastIndexOf("/") + 1), URL.length()), "UTF-8");
-		URL = ((URL.substring(0, (URL.lastIndexOf("/") + 1)).replaceFirst("http", "https")) + fileName);
+		URL = (URL.replaceFirst("http://", "https://"));
 
 		new Download().downloadMod(modName, name, fileID, path, URL);
 		

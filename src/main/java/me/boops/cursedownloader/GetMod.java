@@ -1,10 +1,8 @@
 package me.boops.cursedownloader;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.params.ClientPNames;
@@ -17,7 +15,7 @@ import org.json.JSONArray;
 @SuppressWarnings("deprecation")
 public class GetMod {
 	
-	public void Download(String folder, JSONArray mods) throws ClientProtocolException, IOException {
+	public void Download(String folder, JSONArray mods) throws Exception {
 		
 		for (int i=0; i< mods.length(); i++) {
 			
