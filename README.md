@@ -12,3 +12,6 @@ java -jar CurseDownloader.jar fetch https://minecraft.curseforge.com/projects/fo
 ```bash
 java -jar CurseDownloader.jar extract someFile.zip
 ```
+
+## Download
+[Here](https://builder.frgl.pw/job/CurseDownloader/) or [Here (Direct Link)](https://builder.frgl.pw/job/CurseDownloader/lastSuccessfulBuild/artifact/target/CurseDownloader-0.0.1-SNAPSHOT.jar)
