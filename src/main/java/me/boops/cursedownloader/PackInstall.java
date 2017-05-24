@@ -28,7 +28,7 @@ public class PackInstall {
 		
 		// Get the mods
 		System.out.println("Starting Mod downloads");
-		new GetMod().Download(compressedFilePath + tempFolderName + "/mods/", manifest.getModList());
+		new Download().dlMods(compressedFilePath + tempFolderName + "/mods/", manifest.getModList());
 		
 		// Delete the curse files
 		System.out.println("Removing curse files");

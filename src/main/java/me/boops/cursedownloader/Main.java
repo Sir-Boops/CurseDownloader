@@ -31,7 +31,7 @@ public class Main {
 			System.out.println("Downloading pack: " + packName);
 			
 			// Download the pack
-			new GetFileName().getMod(packName, packID, myPath);
+			new Download().dlPack(packName, packID, myPath);
 			
 			// Get pack name
 			String packZip = new ReturnFileName().getMod(packName, packID, myPath);
