@@ -3,6 +3,7 @@ package me.boops.cursedownloader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -24,7 +25,7 @@ public class Download {
 			conn.connect();
 			conn.getInputStream();
 			
-			getDirectLink(new URL(conn.getURL().toString().substring(0, conn.getURL().toString().indexOf("?"))), mods.getJSONObject(i).getInt("fileID"), folder);
+			getDirectLink(new URL(conn.getURL().toString()), mods.getJSONObject(i).getInt("fileID"), folder);
 			
 		}
 	}
@@ -40,11 +41,15 @@ public class Download {
 		
 		// Get file name
 		URLConnection conn = new URL(url +  "/files/" + fileID + "/download").openConnection();
+		
+		HttpURLConnection httpConn = (HttpURLConnection)conn;
+		httpConn.setInstanceFollowRedirects(false);
+		
 		conn.connect();
 		
 		String fileName = conn.getHeaderField("Location").substring((conn.getHeaderField("Location").lastIndexOf("/") + 1), conn.getHeaderField("Location").length());
 		String modName = url.toString().substring((url.toString().lastIndexOf("/") + 1), url.toString().length());
-		URL directLink = new URL(conn.getHeaderField("Location").replaceFirst("http", "https"));
+		URL directLink = new URL(conn.getHeaderField("Location"));
 		
 		downloadMod(directLink, fileName, modName, folder);
 		
