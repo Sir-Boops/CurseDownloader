@@ -49,7 +49,7 @@ public class Download {
 		conn.connect();
 		
 		String fileName = conn.getHeaderField("Location").substring((conn.getHeaderField("Location").lastIndexOf("/") + 1), conn.getHeaderField("Location").length());
-		String modName = url.toString().substring((url.toString().lastIndexOf("/") + 1), url.toString().length());
+		String modName = URLDecoder.decode(conn.getHeaderField("Location").toString().substring((conn.getHeaderField("Location").lastIndexOf("/") + 1), conn.getHeaderField("Location").toString().length()), "UTF-8");
 		URL directLink = new URL(conn.getHeaderField("Location"));
 		
 		downloadMod(directLink, URLDecoder.decode(fileName, "UTF-8"), modName, folder);
