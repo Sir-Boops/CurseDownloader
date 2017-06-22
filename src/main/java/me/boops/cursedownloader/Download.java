@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 
 import org.json.JSONArray;
 
@@ -40,7 +41,7 @@ public class Download {
 	private void getDirectLink(URL url, int fileID, String folder) throws Exception {
 		
 		// Get file name
-		URLConnection conn = new URL(url +  "/files/" + fileID + "/download").openConnection();
+		URLConnection conn = new URL(url +  "/files/" + fileID + "/download?cookieTest=1").openConnection();
 		
 		HttpURLConnection httpConn = (HttpURLConnection)conn;
 		httpConn.setInstanceFollowRedirects(false);
@@ -51,7 +52,7 @@ public class Download {
 		String modName = url.toString().substring((url.toString().lastIndexOf("/") + 1), url.toString().length());
 		URL directLink = new URL(conn.getHeaderField("Location"));
 		
-		downloadMod(directLink, fileName, modName, folder);
+		downloadMod(directLink, URLDecoder.decode(fileName, "UTF-8"), modName, folder);
 		
 	}
 	
