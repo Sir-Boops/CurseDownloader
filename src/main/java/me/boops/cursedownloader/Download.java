@@ -30,8 +30,9 @@ public class Download {
 					
 					for (int i=0; i<mods.length(); i++) {
 						
+						Thread.currentThread();
+						Thread.sleep(1000);
 						final int internal = i;
-						Thread.currentThread().sleep(50);
 						
 						new Thread(new Runnable(){
 							public void run(){
@@ -178,14 +179,13 @@ public class Download {
 			
 		}
 		
-		ArrayList<String> DownloadedShown = new ArrayList<String>();
 		boolean done = false;
 		while(!done){
 			
 			System.out.print("Downloaded Mods: " + Downloaded.size() + "/" + URLs.size() + "\r");
 			
 			if(Downloaded.size() == URLs.size()){
-				System.out.print("Downloaded Mods: " + Downloaded.size() + "/" + URLs.size());
+				System.out.println("Downloaded Mods: " + Downloaded.size() + "/" + URLs.size());
 				done = true;
 			}
 			
