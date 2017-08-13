@@ -27,7 +27,7 @@ public class Download {
 		for (int i=0; i<mods.length(); i++) {
 			
 			final int internal = i;
-			Thread.currentThread().sleep(10);
+			Thread.currentThread().sleep(50);
 			
 			new Thread(new Runnable(){
 				public void run(){
