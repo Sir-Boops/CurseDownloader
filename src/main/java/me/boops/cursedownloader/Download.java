@@ -24,34 +24,44 @@ public class Download {
 		ArrayList<Integer> ModFileIDs = new ArrayList<Integer>();
 		System.out.println("Converting Mod IDs to Mod Names");
 		
-		for (int i=0; i<mods.length(); i++) {
-			
-			final int internal = i;
-			Thread.currentThread().sleep(50);
-			
-			new Thread(new Runnable(){
-				public void run(){
-					try {
+		new Thread(new Runnable(){
+			public void run(){
+				try {
+					
+					for (int i=0; i<mods.length(); i++) {
 						
-						// Convert IDs
-						URLConnection conn = new URL("https://minecraft.curseforge.com/projects/" + mods.getJSONObject(internal).getInt("projectID")).openConnection();
-						conn.setConnectTimeout(20 * 1000);
-						conn.connect();
-						conn.getInputStream();
+						final int internal = i;
+						Thread.currentThread().sleep(50);
 						
-						//getDirectLink(new URL(conn.getURL().toString()), mods.getJSONObject(i).getInt("fileID"), folder);
-						ModNames.add(conn.getURL());
-						ModFileIDs.add(mods.getJSONObject(internal).getInt("fileID"));
+						new Thread(new Runnable(){
+							public void run(){
+								try {
+									
+									// Convert IDs
+									URLConnection conn = new URL("https://minecraft.curseforge.com/projects/" + mods.getJSONObject(internal).getInt("projectID")).openConnection();
+									conn.setConnectTimeout(20 * 1000);
+									conn.connect();
+									conn.getInputStream();
+									
+									//getDirectLink(new URL(conn.getURL().toString()), mods.getJSONObject(i).getInt("fileID"), folder);
+									ModNames.add(conn.getURL());
+									ModFileIDs.add(mods.getJSONObject(internal).getInt("fileID"));
+									
+								} catch (Exception e) {
+									System.out.println("Error downloading mod: " + mods.getJSONObject(internal).getInt("projectID"));
+									e.printStackTrace();
+									System.exit(1);
+								}
+							}
+						}).start();
 						
-					} catch (Exception e) {
-						System.out.println("Error downloading mod: " + mods.getJSONObject(internal).getInt("projectID"));
-						e.printStackTrace();
-						System.exit(1);
 					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-			}).start();
-			
-		}
+			}
+		}).start();
 		
 		
 		int lastCheck=0;
