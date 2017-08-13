@@ -14,5 +14,5 @@ java -jar CurseDownloader.jar extract someFile.zip
 ```
 
 ## Download
-[Here](https://builder.frgl.pw/job/CurseDownloader/) or [Here (Direct Link)](https://builder.frgl.pw/job/CurseDownloader/lastSuccessfulBuild/artifact/target/CurseDownloader-0.0.1-SNAPSHOT.jar)
+[Here](https://mvn.sergal.org/jenkins/job/CurseDownloader/) or [Here (Direct Link)](https://mvn.sergal.org/jenkins/job/CurseDownloader/lastSuccessfulBuild/artifact/target/CurseDownloader-0.0.1-SNAPSHOT.jar)
 
