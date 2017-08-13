@@ -24,17 +24,22 @@ public class Download {
 		ArrayList<Integer> ModFileIDs = new ArrayList<Integer>();
 		System.out.println("Converting Mod IDs to Mod Names");
 		
+		ThreadGroup IDGroup = new ThreadGroup("IDGroup");
+		
 		new Thread(new Runnable(){
 			public void run(){
 				try {
 					
 					for (int i=0; i<mods.length(); i++) {
 						
-						Thread.currentThread();
-						Thread.sleep(1000);
 						final int internal = i;
 						
-						new Thread(new Runnable(){
+						while(IDGroup.activeCount() >= 10){
+							Thread.currentThread();
+							Thread.sleep(10);
+						}
+						
+						new Thread(IDGroup, new Runnable(){
 							public void run(){
 								try {
 									
@@ -47,6 +52,7 @@ public class Download {
 									//getDirectLink(new URL(conn.getURL().toString()), mods.getJSONObject(i).getInt("fileID"), folder);
 									ModNames.add(conn.getURL());
 									ModFileIDs.add(mods.getJSONObject(internal).getInt("fileID"));
+									return;
 									
 								} catch (Exception e) {
 									System.out.println("Error downloading mod: " + mods.getJSONObject(internal).getInt("projectID"));
@@ -63,7 +69,7 @@ public class Download {
 				}
 			}
 		}).start();
-		
+
 		
 		int lastCheck=0;
 		boolean done = false;
@@ -172,7 +178,7 @@ public class Download {
 						fos.close();
 						
 					} catch (Exception e) {
-						
+						e.printStackTrace();
 					}
 				}
 			}).start();
