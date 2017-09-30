@@ -45,7 +45,7 @@ public class PackInstall {
 		
 		// Move temp folder to final folder
 		System.out.println("Saving to final folder");
-		String finalFolderName = compressedFile.substring((compressedFile.lastIndexOf("/") + 1), compressedFile.length()).replace(".zip", "");
+		String finalFolderName = manifest.getPackName();
 		
 		Path from = new File(compressedFilePath + tempFolderName).toPath();
 		Path to = new File(compressedFilePath + finalFolderName).toPath();
