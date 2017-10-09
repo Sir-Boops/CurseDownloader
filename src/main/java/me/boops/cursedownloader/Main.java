@@ -1,57 +1,33 @@
 package me.boops.cursedownloader;
 
-import java.io.File;
-import java.math.BigInteger;
-import java.security.SecureRandom;
+import me.boops.cursedownloader.initial.InitGUI;
+import me.boops.cursedownloader.initial.InitHELP;
 
 public class Main {
 	
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception {
 		
-		// Get a random string
-		SecureRandom random = new SecureRandom();
-		String tempFolderName = ("." + new BigInteger(130, random).toString(32));
+		// By default here we want to use the GUI unless --no-gui is passed
 		
-		// Check if downloading whole pack or using a pack we already have
-		
-		if(args[0].toLowerCase().equals("fetch")){
+		for(int i = 0; i < args.length; i++) {
 			
-			// We want to grab the pack before working
+			if(args[i].toLowerCase().equals("--help")) {
+				
+				// Print the help menu and exit
+				new InitHELP();
+				
+			}
 			
-			// Get current dir
-			String myPath = new File(".").getAbsolutePath();
-			myPath = myPath.substring(0, (myPath.length() - 1));
-			
-			// Get pack name/fileID
-			int packID = Integer.parseInt(args[1].substring((args[1].lastIndexOf("/") + 1), args[1].length()));
-			String packName = (args[1].replace(args[1].substring(args[1].lastIndexOf("/"), args[1].length()), ""));
-			packName = (packName.replace(packName.substring(packName.lastIndexOf("/"), packName.length()), ""));
-			packName = (packName.substring((packName.lastIndexOf("/") + 1), packName.length()));
-			
-			System.out.println("Downloading pack: " + packName);
-			
-			// Download the pack
-			new DownloadPack().dlPack(packName, packID, myPath);
-			
-			// Get pack name
-			String packZip = new ReturnFileName().getMod(packName, packID, myPath);
-			
-			// Now do the normal install
-			new PackInstall().get(tempFolderName, packZip);
-			
-			System.out.println("Removing Curse export");
-			// Finally delete the downloaded pack
-			new File(myPath + packZip).delete();
+			if(args[i].toLowerCase().equals("--no-gui")) {
+				
+				// Run the program without a GUI
+				
+			}
 			
 		}
 		
-		if(args[0].toLowerCase().equals("extract")){
-			
-			
-			// We just want to extract the pack
-			new PackInstall().get(tempFolderName, args[1]);
-			
-			
-		}
+		// Run the program with a GUI as normal
+		new InitGUI();
+		
 	}
 }
