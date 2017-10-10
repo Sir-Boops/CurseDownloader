@@ -2,15 +2,15 @@ package me.boops.cursedownloader.initals;
 
 import java.io.File;
 import java.math.BigInteger;
+import java.net.URL;
 import java.security.SecureRandom;
 
-import me.boops.cursedownloader.DownloadPack;
 import me.boops.cursedownloader.PackInstall;
-import me.boops.cursedownloader.ReturnFileName;
+import me.boops.cursedownloader.RemoteDealing.FetchPackZip;
 
 public class InitFetch {
 	
-	public InitFetch(String URL) {
+	public InitFetch(URL URL) {
 		
 		// We want to grab the pack before working
 		// Get a random string
@@ -22,16 +22,16 @@ public class InitFetch {
 		myPath = myPath.substring(0, (myPath.length() - 1));
 					
 		// Get pack name/fileID
-		int packID = Integer.parseInt(URL.substring((URL.lastIndexOf("/") + 1), URL.length()));
-		String packName = (URL.replace(URL.substring(URL.lastIndexOf("/"), URL.length()), ""));
-		packName = (packName.replace(packName.substring(packName.lastIndexOf("/"), packName.length()), ""));
-		packName = (packName.substring((packName.lastIndexOf("/") + 1), packName.length()));
+		//int packID = Integer.parseInt(URL.substring((URL.lastIndexOf("/") + 1), URL.length()));
+		//String packName = (URL.replace(URL.substring(URL.lastIndexOf("/"), URL.length()), ""));
+		//packName = (packName.replace(packName.substring(packName.lastIndexOf("/"), packName.length()), ""));
+		//packName = (packName.substring((packName.lastIndexOf("/") + 1), packName.length()));
 		
-		System.out.println("Downloading pack: " + packName);
+		//System.out.println("Downloading pack: " + packName);
 		
 		// Download the pack
 		try {
-			new DownloadPack().dlPack(packName, packID, myPath);
+			new FetchPackZip(URL, myPath);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,11 +40,13 @@ public class InitFetch {
 		// Get pack name
 		String packZip = "";
 		try {
-			packZip = new ReturnFileName().getMod(packName, packID, myPath);
+			//packZip = new ReturnFileName().getMod(packName, packID, myPath);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		System.exit(0);
 		
 		// Now do the normal install
 		try {

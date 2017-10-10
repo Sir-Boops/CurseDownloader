@@ -1,5 +1,7 @@
 package me.boops.cursedownloader;
 
+import java.net.URL;
+
 import me.boops.cursedownloader.initals.InitExtract;
 import me.boops.cursedownloader.initals.InitFetch;
 import me.boops.cursedownloader.initals.InitHelp;
@@ -31,7 +33,7 @@ public class Main {
 			// Check for fetch
 			if(args[i].equalsIgnoreCase("--fetch")) {
 				
-				new InitFetch(args[i + 1]);
+				new InitFetch(new URL(args[i + 1]));
 				return;
 				
 			}
