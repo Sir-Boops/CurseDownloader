@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 
 public class FetchPackZip {
 	
@@ -21,7 +22,7 @@ public class FetchPackZip {
 		InputStream is = conn.getInputStream();
 		
 		// Get the filename from the URL
-		String fileName = conn.getURL().toString().substring(conn.getURL().toString().lastIndexOf('/') + 1);
+		String fileName = URLDecoder.decode(conn.getURL().toString().substring(conn.getURL().toString().lastIndexOf('/') + 1), "UTF-8");
 		
 		// Setup the steam to the disk
 		FileOutputStream fos = new FileOutputStream(new File(SaveLoc + fileName));

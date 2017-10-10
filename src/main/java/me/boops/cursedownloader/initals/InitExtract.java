@@ -3,7 +3,7 @@ package me.boops.cursedownloader.initals;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-import me.boops.cursedownloader.PackInstall;
+import me.boops.cursedownloader.LocalDealing.PackInstall;
 
 public class InitExtract {
 	

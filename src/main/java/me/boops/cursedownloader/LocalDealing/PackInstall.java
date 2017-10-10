@@ -1,10 +1,11 @@
-package me.boops.cursedownloader;
+package me.boops.cursedownloader.LocalDealing;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
+import me.boops.cursedownloader.RemoteDealing.Download;
 import net.lingala.zip4j.core.ZipFile;
 
 public class PackInstall {
@@ -28,7 +29,7 @@ public class PackInstall {
 		
 		// Get the mods
 		System.out.println("Starting Mod downloads");
-		new Download().dlMods(compressedFilePath + tempFolderName + "/mods/", manifest.getModList());
+		new Download(compressedFilePath + tempFolderName + "/mods/", manifest.getModList());
 		
 		// Delete the curse files
 		System.out.println("Removing curse files");

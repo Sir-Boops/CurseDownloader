@@ -1,4 +1,4 @@
-package me.boops.cursedownloader;
+package me.boops.cursedownloader.LocalDealing;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

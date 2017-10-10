@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.security.SecureRandom;
 
-import me.boops.cursedownloader.PackInstall;
+import me.boops.cursedownloader.LocalDealing.PackInstall;
 import me.boops.cursedownloader.RemoteDealing.FetchPackZip;
 
 public class InitFetch {
