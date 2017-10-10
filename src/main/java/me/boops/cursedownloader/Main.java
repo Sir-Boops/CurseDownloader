@@ -1,55 +1,48 @@
 package me.boops.cursedownloader;
 
-import java.io.File;
-import java.math.BigInteger;
-import java.security.SecureRandom;
+import me.boops.cursedownloader.initals.InitExtract;
+import me.boops.cursedownloader.initals.InitFetch;
+import me.boops.cursedownloader.initals.InitHelp;
 
 public class Main {
 	
 	public static void main(String[] args) throws Exception{
 		
-		// Get a random string
-		SecureRandom random = new SecureRandom();
-		String tempFolderName = ("." + new BigInteger(130, random).toString(32));
+		// Check for help, extract then fetch
 		
-		// Check if downloading whole pack or using a pack we already have
-		
-		if(args[0].toLowerCase().equals("fetch")){
+		for(int i = 0; i < args.length; i++) {
 			
-			// We want to grab the pack before working
+			// Check if they want help
+			if(args[i].equalsIgnoreCase("--help")) {
+				
+				new InitHelp();
+				return;
+				
+			}
 			
-			// Get current dir
-			String myPath = new File(".").getAbsolutePath();
-			myPath = myPath.substring(0, (myPath.length() - 1));
+			// Check for extract flag
+			if(args[i].equalsIgnoreCase("--extract")) {
+				
+				new InitExtract(args[i + 1]);
+				return;
+				
+			}
 			
-			// Get pack name/fileID
-			int packID = Integer.parseInt(args[1].substring((args[1].lastIndexOf("/") + 1), args[1].length()));
-			String packName = (args[1].replace(args[1].substring(args[1].lastIndexOf("/"), args[1].length()), ""));
-			packName = (packName.replace(packName.substring(packName.lastIndexOf("/"), packName.length()), ""));
-			packName = (packName.substring((packName.lastIndexOf("/") + 1), packName.length()));
+			// Check for fetch
+			if(args[i].equalsIgnoreCase("--fetch")) {
+				
+				new InitFetch(args[i + 1]);
+				return;
+				
+			}
 			
-			System.out.println("Downloading pack: " + packName);
-			
-			// Download the pack
-			new DownloadPack().dlPack(packName, packID, myPath);
-			
-			// Get pack name
-			String packZip = new ReturnFileName().getMod(packName, packID, myPath);
-			
-			// Now do the normal install
-			new PackInstall().get(tempFolderName, packZip);
-			
-			System.out.println("Removing Curse export");
-			// Finally delete the downloaded pack
-			new File(myPath + packZip).delete();
-			
-		}
-		
-		if(args[0].toLowerCase().equals("extract")){
-			
-			
-			// We just want to extract the pack
-			new PackInstall().get(tempFolderName, args[1]);
+			if((i + 1) == args.length) {
+				
+				// If all else fails
+				System.out.println("--help for help");
+				return;
+				
+			}
 			
 			
 		}
