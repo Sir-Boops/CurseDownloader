@@ -3,40 +3,31 @@ package me.boops.cursedownloader.RemoteDealing;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
 public class FetchPackZip {
 	
-	public FetchPackZip(URL URL, String SaveLoc) throws Exception {
+	public String Fetch(URL URL, String SaveLoc) throws Exception {
 		
-		// First get the direct link to the file
+		// Download the file
+		// Setup the URL
+		URLConnection conn = new URL(URL + "/download").openConnection();
+		
 		// Connect
-		URLConnection connGrabDir = new URL(URL + "/download").openConnection();
-		HttpURLConnection httpConnGrabDir = (HttpURLConnection)connGrabDir;
-		httpConnGrabDir.setInstanceFollowRedirects(false);
-		connGrabDir.connect();
+		conn.connect();
 		
-		// Grab the direct URL but also grab the filename from it
-		String fileName = connGrabDir.getHeaderField("Location").substring((connGrabDir.getHeaderField("Location").lastIndexOf("/") + 1));
-		URL directLink = new URL(connGrabDir.getHeaderField("Location"));
+		// Setup the input stream (This follows all the redirects to the direct link)
+		InputStream is = conn.getInputStream();
 		
-		// Close this connection
-		connGrabDir.getInputStream().close();
+		// Get the filename from the URL
+		String fileName = conn.getURL().toString().substring(conn.getURL().toString().lastIndexOf('/') + 1);
 		
-		// ---------------------------
-		
-		// Now Acually Download the pack
-		URLConnection connGrabPack = directLink.openConnection();
-		
-		connGrabPack.connect();
-		
-		InputStream is = connGrabPack.getInputStream();
+		// Setup the steam to the disk
 		FileOutputStream fos = new FileOutputStream(new File(SaveLoc + fileName));
 		
-		double fileSize = connGrabPack.getContentLength();
-		System.out.println("Downloading " + fileName + ", " + ((int) (fileSize/1024)) + "KB");
+		// Acually download the file
+		double fileSize = conn.getContentLength();
 		double downloaded = 0;
 		double lastPrint = 0;
 		int inByte;
@@ -45,15 +36,17 @@ public class FetchPackZip {
 			fos.write(inByte);
 			if(downloaded > (lastPrint + (5 * 1024))) {
 				lastPrint = downloaded;
-				System.out.print((int) ((downloaded / fileSize) * 100) + "% \r");
+				System.out.print("Downloading " + fileName + ", " + ((int) (fileSize/1024)) + "KB " + (int) ((downloaded / fileSize) * 100) + "% \r");
 			}
 		}
 		
-		System.out.print("100" + "% \r");
+		// Print done and close the connections
+		System.out.println("Downloading " + fileName + ", " + ((int) (fileSize/1024)) + "KB " + (int) ((downloaded / fileSize) * 100) + "% \r");
+		System.out.println("Downloaded " + fileName);
 		
 		is.close();
 		fos.close();
 		
-		return;
+		return fileName;
 	}
 }
