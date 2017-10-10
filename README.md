@@ -1,5 +1,5 @@
 # CurseDownloader
-### Because the curse launcher sucks
+### Because the Twitch launcher sucks
 
 ## How to use
 
