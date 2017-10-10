@@ -1,6 +1,7 @@
 package me.boops.cursedownloader.RemoteDealing;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
@@ -98,6 +99,13 @@ public class Download {
 						System.out.println("Downloaded mod: " + fileName);
 						Downloaded.add(fileName);
 						return;
+						
+					} catch (FileNotFoundException e) {
+						
+						System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+						System.out.println("Missing mod: " + modURL);
+						System.out.println("Please tell the pack creator!");
+						System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 						
 					} catch (Exception e) {
 						e.printStackTrace();
