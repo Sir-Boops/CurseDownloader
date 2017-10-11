@@ -59,7 +59,8 @@ public class Manifest {
 		// Extract data out of the JSON
 		
 		this.mcVersion = manifest.getJSONObject("minecraft").getString("version");
-		this.forgeVersion = manifest.getJSONObject("minecraft").getJSONArray("modLoaders").getJSONObject(0).getString("id");
+		this.forgeVersion = manifest.getJSONObject("minecraft").getJSONArray("modLoaders").getJSONObject(0).getString("id").substring(
+				manifest.getJSONObject("minecraft").getJSONArray("modLoaders").getJSONObject(0).getString("id").indexOf('-') + 1);
 		this.packName = manifest.getString("name");
 		this.packVersion = manifest.getString("version");
 		this.authorName = manifest.getString("author");

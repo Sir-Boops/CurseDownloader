@@ -31,6 +31,13 @@ public class Main {
 				
 			}
 			
+			// Check for --to-multimc-export
+			if(args[i].equalsIgnoreCase("--to-multimc-export")) {
+				
+				Config.convertToMultiMC = true;
+				
+			}
+			
 		}
 		
 		// Check for a run command

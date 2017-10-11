@@ -5,5 +5,6 @@ public class Config {
 	// Configurable Strings
 	public static String folder = null;
 	public static int threads = 6;
+	public static boolean convertToMultiMC = false;
 	
 }
