@@ -15,11 +15,19 @@ public class Main {
 		
 		for(int i = 0; i < args.length; i++) {
 			
-			// Check for dest
+			// Check for --folder-name
 			if(args[i].equalsIgnoreCase("--folder-name")) {
 				
 				// Set full path for the folder
 				Config.folder = (args[i + 1] + "\\");
+				
+			}
+			
+			// Check for --thread-count
+			if(args[i].equalsIgnoreCase("--thread-count")) {
+				
+				// Parse the int
+				Config.threads = Integer.parseInt(args[i + 1]);
 				
 			}
 			

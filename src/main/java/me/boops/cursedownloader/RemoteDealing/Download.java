@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import org.json.JSONArray;
 
+import me.boops.cursedownloader.Config.Config;
+
 public class Download {
 	
 	public Download(String DLLoc, JSONArray modList) throws Exception {
@@ -65,7 +67,7 @@ public class Download {
 			URL modURL = new URL("https://minecraft.curseforge.com/projects/" + modList.getJSONObject(i).getInt("projectID") + "/files/" + modList.getJSONObject(i).getInt("fileID") + "/download");
 			
 			// Make sure that there are always X threads
-			while(dlGroup.activeCount() >= 6) {
+			while(dlGroup.activeCount() >= Config.threads) {
 				Thread.sleep(10);
 			}
 			
