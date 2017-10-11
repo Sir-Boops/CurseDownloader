@@ -7,7 +7,7 @@ import me.boops.cursedownloader.LocalDealing.PackInstall;
 
 public class InitExtract {
 	
-	public InitExtract(String path) {
+	public InitExtract(String path) throws Exception {
 		
 		// Check to make sure that the file is a zip
 		
@@ -19,12 +19,7 @@ public class InitExtract {
 			SecureRandom random = new SecureRandom();
 			String tempFolderName = ("." + new BigInteger(130, random).toString(32));
 			
-			try {
-				new PackInstall().get(tempFolderName, path);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			new PackInstall().get(tempFolderName, path);
 			
 		}
 		

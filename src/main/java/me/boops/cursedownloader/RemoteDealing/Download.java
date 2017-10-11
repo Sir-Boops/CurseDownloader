@@ -35,12 +35,12 @@ public class Download {
 					if(Downloaded.size() >= modList.length()) {
 						
 						// Done Downloading!
-						System.out.print("Downloading Mod: " + Downloaded.size() + " - " + (Downloaded.size() + dlGroup.activeCount()) + " Of " + modList.length() + "\r");
+						System.out.println("Downloading Mod(s): " + Downloaded.size() + " - " + (Downloaded.size() + dlGroup.activeCount()) + " Of " + modList.length() + "\r");
 						done = true;
 						
 					} else {
 						
-						System.out.print("Downloading Mod: " + Downloaded.size() + " - " + (Downloaded.size() + dlGroup.activeCount()) + " Of " + modList.length() + "\r");
+						System.out.print("Downloading Mod(s): " + Downloaded.size() + " - " + (Downloaded.size() + dlGroup.activeCount()) + " Of " + modList.length() + "\r");
 						
 					}
 					

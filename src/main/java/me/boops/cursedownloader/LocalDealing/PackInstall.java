@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
+import me.boops.cursedownloader.Config.Config;
 import me.boops.cursedownloader.RemoteDealing.Download;
 import net.lingala.zip4j.core.ZipFile;
 
@@ -46,7 +47,13 @@ public class PackInstall {
 		
 		// Move temp folder to final folder
 		System.out.println("Saving to final folder");
-		String finalFolderName = manifest.getPackName();
+		String finalFolderName = "";
+		// CHeck if we should use a custom name or not
+		if(Config.folder != null) {
+			finalFolderName = Config.folder;
+		} else {
+			finalFolderName = manifest.getPackName();
+		}
 		
 		Path from = new File(compressedFilePath + tempFolderName).toPath();
 		Path to = new File(compressedFilePath + finalFolderName).toPath();

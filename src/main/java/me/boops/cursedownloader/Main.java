@@ -2,15 +2,30 @@ package me.boops.cursedownloader;
 
 import java.net.URL;
 
+import me.boops.cursedownloader.Config.Config;
 import me.boops.cursedownloader.initals.InitExtract;
 import me.boops.cursedownloader.initals.InitFetch;
 import me.boops.cursedownloader.initals.InitHelp;
 
 public class Main {
 	
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception {
 		
-		// Check for help, extract then fetch
+		// Check for settings
+		
+		for(int i = 0; i < args.length; i++) {
+			
+			// Check for dest
+			if(args[i].equalsIgnoreCase("--folder-name")) {
+				
+				// Set full path for the folder
+				Config.folder = (args[i + 1] + "\\");
+				
+			}
+			
+		}
+		
+		// Check for a run command
 		
 		for(int i = 0; i < args.length; i++) {
 			
@@ -46,7 +61,13 @@ public class Main {
 				
 			}
 			
-			
 		}
+		
+		// If no args are set
+		if(args.length == 0) {
+			System.out.println("--help for help");
+			return;
+		}
+		
 	}
 }

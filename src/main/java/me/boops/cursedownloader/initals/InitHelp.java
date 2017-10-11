@@ -12,6 +12,7 @@ public class InitHelp {
 		System.out.println("Flag Guide");
 		System.out.println("--extract <Filename>.zip - This flag is used to extract a Twitch launcher modpack export");
 		System.out.println("--fetch <pack url> - This flag is used to fetch a modpack directly from curse. Be sure to copy the URL for said version of the modpack");
+		System.out.println("--folder-name <folder name> - Set the name of the output folder");
 		System.out.println("");
 		
 		// Examples
