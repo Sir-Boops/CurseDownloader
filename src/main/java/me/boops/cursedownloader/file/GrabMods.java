@@ -16,6 +16,12 @@ public class GrabMods {
 			
 			new CreateFolder(path);
 			
+			try {
+				Thread.sleep(1 * 1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
 			new FetchFile().fetch(path, URL);
 		}
 		
