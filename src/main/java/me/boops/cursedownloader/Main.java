@@ -47,7 +47,7 @@ public class Main {
 		
 		System.out.println("!!!!!!!!!!!!!!!!!!!!");
 		System.out.println("Use MC Version: " + manifest.getJSONObject("minecraft").getString("version"));
-		System.out.println("Use Forge Version: " + manifest.getJSONObject("minecraft").getJSONArray("modloaders")
+		System.out.println("Use Forge Version: " + manifest.getJSONObject("minecraft").getJSONArray("modLoaders")
 				.getJSONObject(0).getString("id"));
 		System.out.println("!!!!!!!!!!!!!!!!!!!!");
 		
