@@ -45,6 +45,12 @@ public class Main {
 		
 		System.out.println(manifest.getString("name") + " Has finsihed downloading!");
 		
+		System.out.println("!!!!!!!!!!!!!!!!!!!!");
+		System.out.println("Use MC Version: " + manifest.getJSONObject("minecraft").getString("version"));
+		System.out.println("Use Forge Version: " + manifest.getJSONObject("minecraft").getJSONArray("modloaders")
+				.getJSONObject(0).getString("id"));
+		System.out.println("!!!!!!!!!!!!!!!!!!!!");
+		
 		File oldPath = new File(Main.fullPath);
 		File newPath;
 		try {
