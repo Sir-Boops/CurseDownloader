@@ -1,6 +1,8 @@
 package me.boops.cursedownloader;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
@@ -52,12 +54,39 @@ public class Main {
 		System.out.println("!!!!!!!!!!!!!!!!!!!!");
 		
 		File oldPath = new File(Main.fullPath);
-		File newPath;
+		File newPath = new File("");
 		try {
-			newPath = new File(new File(".").getCanonicalPath() + File.separator + manifest.getString("name") + "-" + manifest.getString("version") + File.separator);
+			
+			if(args.length == 2) {
+				if(args[1].equalsIgnoreCase("--mcboop")) {
+					newPath = new File(System.getProperty("user.home") + File.separator + ".mcboop" + File.separator + "profiles"
+							+ File.separator + manifest.getString("name") + "-" + manifest.getString("version") + File.separator);
+					System.out.println("Saved to McBoops profiles folder you can now launch it using: McBoop --profile " + manifest.getString("name") + "-" + manifest.getString("version"));
+					
+				} else {
+					newPath = new File(new File(".").getCanonicalPath() + File.separator + manifest.getString("name") + "-" + manifest.getString("version") + File.separator);
+				}
+			} else {
+				newPath = new File(new File(".").getCanonicalPath() + File.separator + manifest.getString("name") + "-" + manifest.getString("version") + File.separator);
+			}
 			
 			oldPath.renameTo(newPath);
 			System.out.println("Folder saved to: " + newPath);
+			
+			if(args.length == 2) {
+				if(args[1].equalsIgnoreCase("--mcboop")) {
+					JSONObject profile = new JSONObject().put("mcVersion", manifest.getJSONObject("minecraft").getString("version"))
+							.put("forgeVersion", manifest.getJSONObject("minecraft").getJSONArray("modLoaders").getJSONObject(0).getString("id"));
+					
+					File profileJSON = new File(newPath + File.separator + "profile.json");
+					BufferedWriter out = new BufferedWriter(new FileWriter(profileJSON));
+					out.write(profile.toString());
+					out.close();
+					
+					System.out.println("Saved to McBoops profiles folder you can now launch it using: McBoop --profile " + manifest.getString("name") + "-" + manifest.getString("version"));
+					
+				}
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
