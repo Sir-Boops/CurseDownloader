@@ -5,18 +5,16 @@
 
 * To download a pack from curse ( Replace the URL with the one you want )
 ```bash
-java -jar CurseDownloader.jar --fetch https://minecraft.curseforge.com/projects/foolcraft/files/2415352
+java -jar CurseDownloader.jar https://minecraft.curseforge.com/projects/foolcraft/files/2415352
 ```
 
-* To extract an export
+* To download a pack from curse and save it to a MCBoop profile
 ```bash
-java -jar CurseDownloader.jar --extract someFile.zip
+java -jar CurseDownloader.jar https://minecraft.curseforge.com/projects/foolcraft/files/2415352 --mcboop
 ```
-* For more help
+
+* To build just have java 8 installed and run
 ```bash
-java -jar CurseDownloader.jar --help
+Linux: ./gradlew build
+Windows: gradlew.bat
 ```
-
-## Download
-[Here](https://mvn.sergal.org/jenkins/job/CurseDownloader/) or [Here (Direct Link)](https://mvn.sergal.org/jenkins/job/CurseDownloader/lastSuccessfulBuild/artifact/target/CurseDownloader-0.0.1-SNAPSHOT.jar)
-
