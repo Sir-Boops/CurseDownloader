@@ -8,14 +8,16 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import me.boops.cursedownloader.Main;
+
 public class ExtractOverrides {
 	
 	@SuppressWarnings("unchecked")
-	public ExtractOverrides(String path, String file) {
+	public ExtractOverrides(String fullFilePath) {
 		
 		try {
 			
-			ZipFile zipFile = new ZipFile(path + file);
+			ZipFile zipFile = new ZipFile(fullFilePath);
 			List<ZipEntry> fileList = (List<ZipEntry>) Collections.list(zipFile.entries());
 			
 			for(int i = 0; i < fileList.size(); i++) {
@@ -23,14 +25,14 @@ public class ExtractOverrides {
 					String newPath = (fileList.get(i).getName().substring(fileList.get(i).getName().indexOf("/") + 1, fileList.get(i).getName().length()));
 					
 					String filePath = (newPath.substring(0, newPath.lastIndexOf("/") + 1));
-					new CreateFolder(path + filePath);
+					new CreateFolder(Main.fullPath + filePath);
 					
-					if(!newPath.isEmpty() && !new File(path + newPath).isDirectory()) {
+					if(!newPath.isEmpty() && !new File(Main.fullPath + newPath).isDirectory()) {
 						
 						System.out.println("Extracting: " + fileList.get(i).getName());
 						
 						InputStream is = zipFile.getInputStream(fileList.get(i));
-						FileOutputStream fos = new FileOutputStream(path + newPath);
+						FileOutputStream fos = new FileOutputStream(Main.fullPath + newPath);
 						
 						int inByte;
 						while((inByte = is.read()) != -1) {

@@ -21,6 +21,7 @@ public class Main {
 
 	static public String HttpUser = "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0";
 	static public String fullPath = "";
+	static public String zipPath = "";
 	
 	public static void main(String[] args) {
 		
@@ -35,15 +36,21 @@ public class Main {
 		new CreateFolder(Main.fullPath);
 		
 		// Download the requested modpack
-		String zipFileName = new FetchFile().fetch(Main.fullPath, args[0]);
+		String zipFileName = "";
+		if(args[0].contains("https://") || args[0].contains("http://")) {
+			zipFileName = new File(new FetchFile().fetch(Main.fullPath, args[0])).getAbsolutePath();
+		} else {
+			zipFileName = new File(args[0]).getAbsolutePath();
+			System.out.println(zipFileName);
+		}
 		
 		// Read the manifest from the pack zip
-		JSONObject manifest = new ReadManifest().read(Main.fullPath, zipFileName);
+		JSONObject manifest = new ReadManifest().read(zipFileName);
 		
 		// Fetch all the mods
 		new GrabMods(Main.fullPath + "mods" + File.separator, manifest.getJSONArray("files"));
 		
-		new ExtractOverrides(Main.fullPath, zipFileName);
+		new ExtractOverrides(zipFileName);
 		
 		System.out.println(manifest.getString("name") + " Has finsihed downloading!");
 		

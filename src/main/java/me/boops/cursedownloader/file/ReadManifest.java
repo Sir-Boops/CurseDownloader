@@ -9,13 +9,13 @@ import org.json.JSONObject;
 
 public class ReadManifest {
 	
-	public JSONObject read(String path, String fileName) {
+	public JSONObject read(String fullPath) {
 		
 		JSONObject ans = new JSONObject();
 		
 		try {
 			
-			ZipFile packZip = new ZipFile(path + fileName);
+			ZipFile packZip = new ZipFile(fullPath);
 			InputStream is = packZip.getInputStream(packZip.getEntry("manifest.json"));
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(is));
