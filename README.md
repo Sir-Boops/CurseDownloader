@@ -5,12 +5,12 @@
 
 * To download a pack from curse ( Replace the URL with the one you want )
 ```bash
-java -jar CurseDownloader.jar https://minecraft.curseforge.com/projects/foolcraft/files/2415352
+java -jar CurseDownloader.jar https://minecraft.curseforge.com/projects/foolcraft/files/2415352/download
 ```
 
 * To download a pack from curse and save it to a MCBoop profile
 ```bash
-java -jar CurseDownloader.jar https://minecraft.curseforge.com/projects/foolcraft/files/2415352 --mcboop
+java -jar CurseDownloader.jar https://minecraft.curseforge.com/projects/foolcraft/files/2415352/download --mcboop
 ```
 
 * To build just have java 8 installed and run

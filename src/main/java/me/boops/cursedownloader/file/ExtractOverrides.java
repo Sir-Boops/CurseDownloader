@@ -1,5 +1,6 @@
 package me.boops.cursedownloader.file;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -32,14 +33,18 @@ public class ExtractOverrides {
 						System.out.println("Extracting: " + fileList.get(i).getName());
 						
 						InputStream is = zipFile.getInputStream(fileList.get(i));
+						ByteArrayOutputStream bos = new ByteArrayOutputStream();
 						FileOutputStream fos = new FileOutputStream(Main.fullPath + newPath);
 						
 						int inByte;
 						while((inByte = is.read()) != -1) {
-							fos.write(inByte);
+							bos.write(inByte);
 						}
 						
+						fos.write(bos.toByteArray());
+						
 						fos.close();
+						bos.close();
 						is.close();
 					}
 				}

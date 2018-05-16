@@ -1,5 +1,6 @@
 package me.boops.cursedownloader.remote;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -16,9 +17,7 @@ public class FetchFile {
 		String ans = "";
 		
 		try {
-			
-			URL url = new URL(getRealURL(URL));
-
+			URL url = new URL(URL);
 			HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
 			conn.setReadTimeout(10 * 1000);
 			conn.setConnectTimeout(10 * 1000);
@@ -27,7 +26,10 @@ public class FetchFile {
 			conn.setInstanceFollowRedirects(true);
 			
 			InputStream is = conn.getInputStream();
+			is.close();
 			
+			conn = (HttpsURLConnection) conn.getURL().openConnection();
+			is = conn.getInputStream();
 			
 			new URLDecoder();
 			String fileName = URLDecoder.decode(conn.getURL().toString().substring(conn.getURL().toString().lastIndexOf("/") + 1,
@@ -35,45 +37,25 @@ public class FetchFile {
 			
 			ans = fileName;
 			
+			System.out.println("Downloading: " + fileName);
+			
 			FileOutputStream fos = new FileOutputStream(new File(path + fileName));
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
 			
 			int inByte;
 			while((inByte = is.read()) != -1) {
-				fos.write(inByte);
+				bos.write(inByte);
 			}
 			
+			fos.write(bos.toByteArray());
+			
 			fos.close();
+			bos.close();
 			is.close();
 			
 		} catch(Exception e) {
 			System.out.println("Failed to download: " + URL);
 			System.out.println("Tell your pack author!");
-		}
-		
-		return ans;
-	}
-	
-	private String getRealURL(String URL) {
-		String ans = "";
-		
-		try {
-			
-			URL url = new URL(URL);
-
-			HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-			conn.setReadTimeout(10 * 1000);
-			conn.setConnectTimeout(10 * 1000);
-			conn.setRequestMethod("GET");
-			conn.setRequestProperty("User-Agent", Main.HttpUser);
-			conn.setInstanceFollowRedirects(false);
-			
-			String locHeader = conn.getHeaderField("Location");
-			String fileURL = (locHeader.substring(0, locHeader.lastIndexOf("/") + 1));
-			String fileName = (locHeader.substring(locHeader.lastIndexOf("/") + 1, locHeader.length()));
-			
-			ans = fileURL + fileName.replaceAll(" ", "%20");
-			
-		} catch(Exception e) {
 		}
 		
 		return ans;

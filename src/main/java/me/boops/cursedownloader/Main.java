@@ -23,22 +23,16 @@ public class Main {
 	static public String fullPath = "";
 	static public String zipPath = "";
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
-		// Set the temp folder dir
-		try {
-			Main.fullPath = (new File(".").getCanonicalPath() + File.separator + ".temp-" + new BigInteger(32, Main.random).toString() + File.separator);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		// Create the temp folder
+		// Set the temp folder dir and create it
+		Main.fullPath = (new File(".").getCanonicalPath() + File.separator + ".temp-" + new BigInteger(32, Main.random).toString() + File.separator);
 		new CreateFolder(Main.fullPath);
 		
 		// Download the requested modpack
 		String zipFileName = "";
-		if(args[0].contains("https://") || args[0].contains("http://")) {
-			zipFileName = new File(new FetchFile().fetch(Main.fullPath, args[0])).getAbsolutePath();
+		if(args[0].contains("https://")) {
+			zipFileName = new File(Main.fullPath + new FetchFile().fetch(Main.fullPath, args[0])).getAbsolutePath();
 		} else {
 			zipFileName = new File(args[0]).getAbsolutePath();
 			System.out.println(zipFileName);

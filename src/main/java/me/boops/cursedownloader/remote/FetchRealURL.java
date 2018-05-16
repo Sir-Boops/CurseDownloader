@@ -9,11 +9,9 @@ import me.boops.cursedownloader.Main;
 
 public class FetchRealURL {
 	public String fetch(String URL) {
-		
 		String ans = "";
 		
 		try {
-			
 			URL url = new URL(URL);
 
 			HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
@@ -28,11 +26,7 @@ public class FetchRealURL {
 			
 			is.close();
 			
-		} catch(Exception e) {
-			
-		}
-		
+		} catch(Exception e) {}
 		return ans;
-		
 	}
 }
