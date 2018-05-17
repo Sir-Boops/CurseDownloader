@@ -16,5 +16,5 @@ java -jar CurseDownloader.jar https://minecraft.curseforge.com/projects/foolcraf
 * To build just have java 8 installed and run
 ```bash
 Linux: ./gradlew build
-Windows: gradlew.bat
+Windows: gradlew.bat build
 ```
