@@ -12,7 +12,7 @@ public class GrabMods {
 	
 	public static List<String> urls = new ArrayList<String>();
 	
-	public GrabMods(String path, JSONArray mods) throws Exception {
+	public GrabMods(String path, JSONArray mods, String mc_version) throws Exception {
 		
 		// Gen the list of links
 		genLinks(mods);
@@ -27,7 +27,7 @@ public class GrabMods {
 			}
 			
 			// Start a new thread
-			Thread thread = new Thread(dlGroup, new DownloadModThread(path, GrabMods.urls.get(i)));
+			Thread thread = new Thread(dlGroup, new DownloadModThread(path, GrabMods.urls.get(i), mc_version));
 			thread.start();
 			
 		}

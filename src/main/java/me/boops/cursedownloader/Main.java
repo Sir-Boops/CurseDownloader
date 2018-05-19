@@ -42,7 +42,7 @@ public class Main {
 		JSONObject manifest = new ReadManifest().read(zipFileName);
 		
 		// Fetch all the mods
-		new GrabMods(Main.fullPath + "mods" + File.separator, manifest.getJSONArray("files"));
+		new GrabMods(Main.fullPath + "mods" + File.separator, manifest.getJSONArray("files"), manifest.getJSONObject("minecraft").getString("version"));
 		
 		new ExtractOverrides(zipFileName);
 		
@@ -84,7 +84,7 @@ public class Main {
 					out.write(profile.toString());
 					out.close();
 					
-					System.out.println("Saved to McBoops profiles folder you can now launch it using: McBoop --profile " + manifest.getString("name") + "-" + manifest.getString("version"));
+					System.out.println("Saved to McBoops profiles folder you can now launch it using: McBoop --profile \"" + manifest.getString("name") + "-" + manifest.getString("version") + "\"");
 					
 				}
 			}

@@ -17,19 +17,14 @@ public class FetchFile {
 		String ans = "";
 		
 		try {
-			URL url = new URL(URL);
-			HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+			HttpsURLConnection conn = (HttpsURLConnection) new URL(getRedir(URL)).openConnection();
 			conn.setReadTimeout(10 * 1000);
 			conn.setConnectTimeout(10 * 1000);
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("User-Agent", Main.HttpUser);
-			conn.setInstanceFollowRedirects(true);
+			conn.setInstanceFollowRedirects(false);
 			
 			InputStream is = conn.getInputStream();
-			is.close();
-			
-			conn = (HttpsURLConnection) conn.getURL().openConnection();
-			is = conn.getInputStream();
 			
 			new URLDecoder();
 			String fileName = URLDecoder.decode(conn.getURL().toString().substring(conn.getURL().toString().lastIndexOf("/") + 1,
@@ -54,10 +49,49 @@ public class FetchFile {
 			is.close();
 			
 		} catch(Exception e) {
-			System.out.println("Failed to download: " + URL);
-			System.out.println("Tell your pack author!");
+			ans = "false";
 		}
 		
+		return ans;
+	}
+	
+	private String getRedir(String url) throws Exception {
+		
+		String ans = "";
+		
+		HttpsURLConnection conn = (HttpsURLConnection) new URL(url).openConnection();
+		conn.setReadTimeout(10 * 1000);
+		conn.setConnectTimeout(10 * 1000);
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("User-Agent", Main.HttpUser);
+		conn.setInstanceFollowRedirects(false);
+		
+		InputStream is = conn.getInputStream();
+		is.close();
+		
+		// If code is not 200 go deeper
+		if(conn.getResponseCode() > 200 && conn.getResponseCode() < 400) {
+			ans = getRedir(cleanURL(conn.getHeaderField("Location")));
+		}
+		
+		// If code is 200 return this URL
+		if(conn.getResponseCode() == 200) {
+			ans = cleanURL(conn.getURL().toString());
+		}
+		return ans;
+	}
+	
+	private String cleanURL(String url) throws Exception {
+		char[] url_arr = url.toCharArray();
+		String ans = "";
+		for(int i = 0; i < url_arr.length; i++) {
+			String some_char = String.valueOf(url_arr[i]);
+			if(some_char.equals(" ")) {
+				ans += "%20";
+			} else {
+				ans += some_char;
+			}
+		}
 		return ans;
 	}
 }

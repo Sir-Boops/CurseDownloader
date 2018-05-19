@@ -27,6 +27,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
 	compile group: 'org.json', name: 'json', version: '20171018'
+  compile group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
 }
 
 jar {
@@ -39,4 +40,3 @@ jar {
 		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
 	}
 }
-
