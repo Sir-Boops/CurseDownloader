@@ -32,7 +32,15 @@ public class Main {
         // Download the requested modpack
         String zipFileName = "";
         if (args[0].contains("https://")) {
-            zipFileName = new File(Main.fullPath + new FetchFile().fetch(Main.fullPath, args[0])).getAbsolutePath();
+            
+            // Check if old link or new
+            if(args[0].contains("client=y")) {
+                // New link
+                zipFileName = new File(Main.fullPath + new FetchFile().fetch(Main.fullPath, new NewLinkDecoder().get_url(args[0]))).getAbsolutePath();
+            } else {
+                // Old link
+                zipFileName = new File(Main.fullPath + new FetchFile().fetch(Main.fullPath, args[0])).getAbsolutePath();
+            }
         } else {
             zipFileName = new File(args[0]).getAbsolutePath();
             System.out.println(zipFileName);
