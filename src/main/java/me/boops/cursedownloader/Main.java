@@ -12,14 +12,14 @@ import me.boops.cursedownloader.file.CreateFolder;
 import me.boops.cursedownloader.file.ExtractOverrides;
 import me.boops.cursedownloader.file.GrabMods;
 import me.boops.cursedownloader.file.ReadManifest;
-import me.boops.cursedownloader.remote.FetchFile;
+import me.boops.cursedownloader.remote.FetchContent;
 
 public class Main {
 
     // Get A Random String for natives
     private static SecureRandom random = new SecureRandom();
 
-    static public String HttpUser = "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0";
+    static public String HttpUser = "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/62.0";
     static public String fullPath = "";
     static public String zipPath = "";
 
@@ -36,10 +36,10 @@ public class Main {
             // Check if old link or new
             if(args[0].contains("client=y")) {
                 // New link
-                zipFileName = new File(Main.fullPath + new FetchFile().fetch(Main.fullPath, new NewLinkDecoder().get_url(args[0]))).getAbsolutePath();
+                zipFileName = new File(Main.fullPath + new FetchContent().fetch(Main.fullPath, new NewLinkDecoder().get_url(args[0]))).getAbsolutePath();
             } else {
                 // Old link
-                zipFileName = new File(Main.fullPath + new FetchFile().fetch(Main.fullPath, args[0])).getAbsolutePath();
+                zipFileName = new File(Main.fullPath + new FetchContent().fetch(Main.fullPath, args[0])).getAbsolutePath();
             }
         } else {
             zipFileName = new File(args[0]).getAbsolutePath();

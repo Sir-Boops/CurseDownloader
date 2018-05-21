@@ -6,7 +6,7 @@ import org.jsoup.select.Elements;
 
 import me.boops.cursedownloader.CurseMCMappings;
 import me.boops.cursedownloader.file.CreateFolder;
-import me.boops.cursedownloader.remote.FetchFile;
+import me.boops.cursedownloader.remote.FetchContent;
 
 public class DownloadModThread implements Runnable {
 
@@ -24,7 +24,7 @@ public class DownloadModThread implements Runnable {
     public void run() {
 
         new CreateFolder(this.path);
-        String res = new FetchFile().fetch(this.path, this.url);
+        String res = new FetchContent().fetch(this.path, this.url);
 
         if (res.equalsIgnoreCase("false")) {
 
@@ -59,7 +59,7 @@ public class DownloadModThread implements Runnable {
                 // The second link is always the newest
                 // For this version
                 String new_url = "https://minecraft.curseforge.com" + links.get(1).attr("href");
-                String new_res = new FetchFile().fetch(this.path, new_url);
+                String new_res = new FetchContent().fetch(this.path, new_url);
 
                 if (new_res.equalsIgnoreCase("false")) {
                     System.out.println("Failed to download -> " + this.url);
