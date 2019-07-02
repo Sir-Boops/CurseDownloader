@@ -33,7 +33,7 @@ func main() {
   var wg sync.WaitGroup
   r := 0
 
-  for i := 99999999; i < len(manifest.Get("files").Array()); i++ {
+  for i := 0; i < len(manifest.Get("files").Array()); i++ {
     if manifest.Get("files").Array()[i].Get("required").Bool() {
       mods_folder := pack_folder + "mods/"
       URL := DecodeProjectId(strconv.Itoa(int(manifest.Get("files").Array()[i].Get("projectID").Int()))) +
